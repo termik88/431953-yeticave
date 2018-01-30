@@ -1,7 +1,7 @@
 # Личный проект «YetiCave»
 
 * Студент: [Илья Колосов](https://up.htmlacademy.ru/php/4/user/431953).
-* Наставник: `Неизвестно`.
+* Наставник: [Игорь Антонов](https://htmlacademy.ru/profile/antonov).
 
 ---
 
