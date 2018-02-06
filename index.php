@@ -34,16 +34,21 @@ $ad_array_items = [
     [
         'title' => 'Куртка для сноуборда DC Mutiny Charocal',
         'category' => 'Одежда',
-        'price' => 7500,
+        'price' => 7500.11,
         'image_url' => 'img/lot-5.jpg'
     ],
     [
         'title' => 'Маска Oakley Canopy',
         'category' => 'Разное',
-        'price' => 5400,
+        'price' => 500,
         'image_url' => 'img/lot-6.jpg'
     ]
 ];
+
+function modify_price($value) {
+    $changed_price = ceil($value);
+    return $changed_price >= 1000 ? $changed_price = number_format($changed_price, 0, '', ' ') : $changed_price;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -123,7 +128,7 @@ $ad_array_items = [
             <?php foreach ($ad_array_items as $key => $value): ?>
                 <li class="lots__item lot">
                     <div class="lot__image">
-                        <img src="<?= $value['URL картинки'] ?>" width="350" height="260" alt="Сноуборд">
+                        <img src="<?= $value['image_url'] ?>" width="350" height="260" alt="Сноуборд">
                     </div>
                     <div class="lot__info">
                         <span class="lot__category"><?= $value['category'] ?></span>
@@ -131,7 +136,7 @@ $ad_array_items = [
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?= $value['price'] ?><b class="rub">р</b></span>
+                                <span class="lot__cost"><?= modify_price($value['price']) ?><b class="rub">р</b></span>
                             </div>
                             <div class="lot__timer timer">
 
