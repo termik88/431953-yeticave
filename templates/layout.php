@@ -6,10 +6,6 @@
  * Time: 16:41
  */
 
-function modify_price($value) {
-    $changed_price = ceil($value);
-    return $changed_price >= 1000 ? $changed_price = number_format($changed_price, 0, '', ' ') : $changed_price;
-}
 ?>
 <!DOCTYPE html>
 <html lang="ru">

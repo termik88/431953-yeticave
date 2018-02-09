@@ -7,15 +7,12 @@
  */
 
 function render_template($template, $data) {
-    $str = '';
+    $html = '';
     if (file_exists($template)) {
-        require_once ($template);
+        extract($data);
         ob_start();
-        print ($data);
-        print ($template);
-        $str = ob_get_clean();
+        require_once($template);
+        $html = ob_get_clean();
     }
-    return $str;
+    return $html;
 };
-
-?>
