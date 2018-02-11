@@ -5,15 +5,6 @@
  * Date: 08.02.2018
  * Time: 16:42
  */
-function modify_price($value) {
-    $changed_price = ceil($value);
-    return $changed_price >= 1000 ? $changed_price = number_format($changed_price, 0, '', ' ') : $changed_price;
-}
-
-function esc($str) {
-    $text = strip_tags($str);
-    return $text;
-}
 ?>
 
 <section class="promo">

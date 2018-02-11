@@ -8,6 +8,6 @@
 
 $config = [
     'sitename' => 'yeticave',
-    'tpl_path' => 'tpl/',
+    'tpl_path' => 'templates/',
     'enable' => true
 ];
