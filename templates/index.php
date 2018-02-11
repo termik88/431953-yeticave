@@ -50,7 +50,7 @@
                             <span class="lot__cost"><?= modify_price($value['price']) ?><b class="rub">р</b></span>
                         </div>
                         <div class="lot__timer timer">
-
+                            <?= calc_date() ?>
                         </div>
                     </div>
                 </div>

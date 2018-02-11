@@ -32,9 +32,20 @@ function render_template($template, $data) {
 function modify_price($value) {
     $changed_price = ceil($value);
     return $changed_price >= 1000 ? $changed_price = number_format($changed_price, 0, '', ' ') : $changed_price;
-}
+};
 
 function esc($str) {
     $text = strip_tags($str);
     return $text;
-}
+};
+
+function calc_date() {
+    date_default_timezone_set('Europe/Moscow'); /*Не работает*/
+    $cur_time = date('H:i:s');
+    $cur_time_unix = strtotime($cur_time);
+    $midnight_time = strtotime('23:59:59');
+
+    $cal_time = $midnight_time - $cur_time_unix;
+
+    return 'Осталось: ' . date('H:i', $cal_time);
+};
