@@ -46,6 +46,8 @@ function calc_date() {
     $midnight_time = strtotime('23:59:59');
 
     $cal_time = $midnight_time - $cur_time_unix;
+    $hour = floor($cal_time / 3600);
+    $minutes = floor(($cal_time - $hour * 3600) / 60);
 
-    return 'Осталось: ' . date('H:i', $cal_time);
+    return 'Осталось: ' . $hour . ':' . $minutes;
 };
