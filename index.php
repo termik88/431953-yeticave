@@ -38,11 +38,11 @@ function loading_index($array_val) {
     return print($layout_content);
 };
 
-loading_page($config, loading_index(['config' => $config,
-                                    'ad_array_items' => $ad_array_items,
-                                    'categories' => $categories,
-                                    'is_auth' => $is_auth,
-                                    'user_name' => $user_name,
-                                    'user_avatar' => $user_avatar
-]));
+loading_page($config, 'loading_index', ['config' => $config,
+    'ad_array_items' => $ad_array_items,
+    'categories' => $categories,
+    'is_auth' => $is_auth,
+    'user_name' => $user_name,
+    'user_avatar' => $user_avatar
+]);
 

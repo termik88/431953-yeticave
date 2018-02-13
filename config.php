@@ -11,3 +11,4 @@ $config = [
     'tpl_path' => 'templates/',
     'enable' => true
 ];
+

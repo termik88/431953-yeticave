@@ -6,11 +6,9 @@
  * Time: 0:25
  */
 
-function loading_page($server_status, $page_loading_function){
-    if ($server_status['config']['enable']) {
-
-        $page_loading_function();
-
+function loading_page($server_status, $page_loading_function, $data){
+    if ($server_status['enable']) {
+        $page_loading_function($data);
     } else {
         $error_msg = "Сайт на техническом обслуживании";
         print ($error_msg);
