@@ -7,8 +7,7 @@
  */
 
 function loading_page($page_loading_function){
-    global $config;
-    if ($config['enable']) {
+    if ($GLOBALS['config']['enable']) {
 
         $page_loading_function();
 
@@ -40,7 +39,7 @@ function esc($str) {
 };
 
 function calc_date() {
-    date_default_timezone_set('Europe/Moscow'); /*Не работает*/
+    date_default_timezone_set('Europe/Moscow');
     $cur_time = date('H:i:s');
     $cur_time_unix = strtotime($cur_time);
     $midnight_time = strtotime('23:59:59');
@@ -49,5 +48,5 @@ function calc_date() {
     $hour = floor($cal_time / 3600);
     $minutes = floor(($cal_time - $hour * 3600) / 60);
 
-    return 'Осталось: ' . $hour . ':' . $minutes;
+    return 'Осталось: ' . date('H:i', mktime($hour, $minutes));
 };
