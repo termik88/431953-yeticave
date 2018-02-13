@@ -6,8 +6,8 @@
  * Time: 0:25
  */
 
-function loading_page($page_loading_function){
-    if ($GLOBALS['config']['enable']) {
+function loading_page($server_status, $page_loading_function){
+    if ($server_status['config']['enable']) {
 
         $page_loading_function();
 
