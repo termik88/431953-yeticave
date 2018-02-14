@@ -40,10 +40,6 @@ function modify_price($value) {
     return $changed_price >= 1000 ? $changed_price = number_format($changed_price, 0, '', ' ') : $changed_price;
 };
 
-function esc($str) {
-    return strip_tags($str);
-};
-
 function calc_date($cur_time) {
     date_default_timezone_set('Europe/Moscow');
     $cur_time_unix = strtotime($cur_time);
