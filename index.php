@@ -1,48 +1,54 @@
 <?php
+
+
+require_once('data.php');
+require_once('function.php');
+
+function render_template($template, $data) {
+    $html = '';
+    if (file_exists($template)) {
+        extract($data);
+        ob_start();
+        require_once($template); /*$data['config']['tpl_path'] . */
+        $html = ob_get_clean();
+    }
+    return $html;
+};
 /*
-if (file_exists('config.php') and file_exists('data.php') and file_exists('function.php')) {
-    require_once('config.php');
-    require_once('data.php');
-    require_once('function.php');
-}else {
-    print "нет необходимых файлов";
-};
-*/
+function loading_index($path, $name_page, $array_val) {
+    $page_content = render_template($path . 'index.php', $array_val);
 
-function loading_index($array_val) {
-    $page_content = render_template($array_val['config']['tpl_path'] . 'index.php',
-        ['ad_array_items' => $array_val['ad_array_items']]);
-
-    $layout_content = render_template($array_val['config']['tpl_path'] . 'layout.php',
-        ['title' => 'Главная',
-            'content' => $page_content,
-            'categories' => $array_val['categories'],
-            'is_auth' => $array_val['is_auth'],
-            'user_name' => $array_val['user_name'],
-            'user_avatar' => $array_val['user_avatar']
-        ]);
+    $layout_content = render_template($path . 'layout.php', ['title' => $name_page,
+                                                            'content' => $page_content,
+                                                            'categories' => $array_val['categories'],
+                                                            'is_auth' => $array_val['is_auth'],
+                                                            'user_name' => $array_val['user_name'],
+                                                            'user_avatar' => $array_val['user_avatar']
+    ]);
     return print($layout_content);
+};*/
+
+
+function loading_page($name_page, $data){
+    require_once('config.php');
+
+    if ($config['enable']) {
+        $data['title'] = $name_page;
+        $data['content'] = render_template($config['tpl_path'] . 'index.php', $data);
+        $layout_content = render_template($config['tpl_path'] . 'layout.php', $data);
+        return print($layout_content);
+    } else {
+        $error_msg = "Сайт на техническом обслуживании";
+        print ($error_msg);
+    }
 };
 
-function checking_files($array_files){
-    $error_count = 0;
-    foreach ($array_files as $key => $value) {
-        if (file_exists($value)) {
-            require_once ($value);
-        } else {
-            print "Отсуствует файл: " . $value;
-            $error_count++;
-        }
-    };
-    if ($error_count === 0) {
-        loading_page($config, 'loading_index', ['config' => $config,
-            'ad_array_items' => $ad_array_items,
-            'categories' => $categories,
-            'is_auth' => $is_auth,
-            'user_name' => $user_name,
-            'user_avatar' => $user_avatar
-        ]);
-    };
-};
 
-checking_files(['config.php', 'data.php', 'function.php']);
+
+loading_page('Главная', ['ad_array_items' => $ad_array_items,
+                                                   'categories' => $categories,
+                                                   'is_auth' => $is_auth,
+                                                   'user_name' => $user_name,
+                                                   'user_avatar' => $user_avatar
+]);
+

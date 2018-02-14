@@ -6,25 +6,6 @@
  * Time: 0:25
  */
 
-function loading_page($server_status, $page_loading_function, $data){
-    if ($server_status['enable']) {
-        $page_loading_function($data);
-    } else {
-        $error_msg = "Сайт на техническом обслуживании";
-        print ($error_msg);
-    }
-};
-
-function render_template($template, $data) {
-    $html = '';
-    if (file_exists($template)) {
-        extract($data);
-        ob_start();
-        require_once($template);
-        $html = ob_get_clean();
-    }
-    return $html;
-};
 
 function modify_price($value) {
     $changed_price = ceil($value);
@@ -32,13 +13,11 @@ function modify_price($value) {
 };
 
 function esc($str) {
-    $text = strip_tags($str);
-    return $text;
+    return strip_tags($str);
 };
 
-function calc_date() {
+function calc_date($cur_time) {
     date_default_timezone_set('Europe/Moscow');
-    $cur_time = date('H:i:s');
     $cur_time_unix = strtotime($cur_time);
     $midnight_time = strtotime('23:59:59');
 
@@ -46,5 +25,5 @@ function calc_date() {
     $hour = floor($cal_time / 3600);
     $minutes = floor(($cal_time - $hour * 3600) / 60);
 
-    return 'Осталось: ' . date('H:i', mktime($hour, $minutes));
+    return date('H:i', mktime($hour, $minutes));
 };
