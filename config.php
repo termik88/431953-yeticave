@@ -7,7 +7,7 @@
  */
 
 $config = [
-    'sitename' => 'yeticave',
+    'site_name' => 'YetiCave',
     'tpl_path' => 'templates/',
     'enable' => true
 ];

@@ -6,6 +6,34 @@
  * Time: 0:25
  */
 
+function render_template($template, $data){
+    require ('config.php');
+    $path_template = $config['tpl_path'] .  $template;
+    $html = '';
+
+    if (file_exists($path_template)) {
+        extract($data);
+        ob_start();
+        require_once($path_template);
+        $html = ob_get_clean();
+    }
+    return $html;
+};
+
+function loading_page($file_name, $page_title, $data){
+    require('config.php');
+
+    if ($config['enable']) {
+        $data['content'] = render_template($file_name, $data);
+        $data['title'] = $page_title;
+        $data['site_name'] = $config['site_name'];
+        $layout_content = render_template('layout.php', $data);
+        return print($layout_content);
+    } else {
+        $error_msg = "Сайт на техническом обслуживании";
+        print ($error_msg);
+    };
+};
 
 function modify_price($value) {
     $changed_price = ceil($value);
