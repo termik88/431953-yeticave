@@ -19,7 +19,7 @@
 
 <header class="main-header">
     <div class="main-header__container container">
-        <h1 class="visually-hidden">YetiCave</h1>
+        <h1 class="visually-hidden"><?= $site_name ?></h1>
         <a class="main-header__logo">
             <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
