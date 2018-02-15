@@ -13,19 +13,20 @@ $lot = null;
 if (isset($_GET['lot_id'])) {
     $lot_id = $_GET['lot_id'];
 
-    foreach ($ad_array_items as $item) {
-        if ($item['id'] === $lot_id) {
+    foreach ($ad_array_items as $key => $item) {
+        if ($key === (int)$lot_id) {
             $lot = $item;
-            break;
         }
     }
-}
+};
 
 if (!$lot) {
     http_response_code(404);
-}
+};
 
-loading_page('lot.php', 'YetiCave - Просмотр лота', ['ad_array_items' => $ad_array_items,
+loading_page('lot.php', 'YetiCave - Просмотр лота', ['lot_id' => $lot_id,
+                                                                        'lot' => $lot,
+                                                                        'bets' => $bets,
                                                                         'categories' => $categories,
                                                                         'is_auth' => $is_auth,
                                                                         'user_name' => $user_name,
