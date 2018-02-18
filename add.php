@@ -22,34 +22,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-
-    /* Работа с файлом */
-    if (isset($_FILES['add_img']['name'])) {
+    if ($_FILES['add_img']['name']) {
         $tpm_name = $_FILES['add_img']['tmp_name'];
         $path = $_FILES['add_img']['name'];
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $file_type = finfo_file($finfo, $tpm_name);
 
-        $res = move_uploaded_file($tpm_name, 'img/' . $path);
-        if ($file_type !== 'image/jpeg' || $file_type !== 'image/png') {
-            $errors['file'] = 'Загрузите картинку в формате jpeg, либо png';
+        if ($file_type !== "image/jpeg" || $file_type !== "image/png") {
+            $errors['image_url'] = 'Загрузите картинку в формате jpeg, либо png';
         } else {
             move_uploaded_file($tpm_name, 'img/' . $path);
+            $lot['image_url'] = 'img/' . $path; /*img - указано в дате, поэтому*/
         }
+    } else {
+        $errors['image_url'] = 'Вы не загрузили файл';
     }
 
-    if (isset($path)) {
-        $lot['image_url'] = 'img/' . $path;
-    }
-
-    loading_page('lot.php', 'Просмотр лота', ['lot' => $lot,
+    if (count($errors)) {
+        loading_page('add.php', 'Добавление лота - ошибки', ['lot' => $lot,
+                                                                                'errors' => $errors,
+                                                                                'dict' => $dict,
+                                                                                'categories' => $categories,
+                                                                                'is_auth' => $is_auth,
+                                                                                'user_name' => $user_name,
+                                                                                'user_avatar' => $user_avatar
+        ]);
+    } else {
+        loading_page('lot.php', 'Просмотр добавленного лота', ['lot' => $lot,
                                                                     'categories' => $categories,
                                                                     'is_auth' => $is_auth,
                                                                     'user_name' => $user_name,
                                                                     'user_avatar' => $user_avatar
-    ]);
-}
-else {
+        ]);
+    }
+} else {
     loading_page('add.php', 'Добавление лота', ['categories' => $categories,
                                                                     'is_auth' => $is_auth,
                                                                     'user_name' => $user_name,
