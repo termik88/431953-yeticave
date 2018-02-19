@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lot = $_POST;
     $required = ['title', 'category', 'description', 'price', 'lot-step', 'lot-date'];
     $dict = ['title' => 'Наименование', 'category' => 'Категория',
-        'description' => 'Описание', 'price' => 'Начальная цена', 'lot-date' => 'Дата окончания торгов', 'lot-step' => 'Шаг ставки'];
+        'description' => 'Описание', 'price' => 'Начальная цена',
+        'lot-date' => 'Дата окончания торгов', 'lot-step' => 'Шаг ставки', 'image_url' => 'Картинка'];
     $errors = [];
 
     foreach ($required as $key) {
@@ -31,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $errors[$key] = 'Вы не выбрали категорию';
         }
 
-        if ((!strtotime($_POST[$key])) or (strtotime($_POST[$key]) < time())) {
-            $errors[$key] = 'Некорректно указана дата';
+        if ((!strtotime($_POST['lot-date'])) or (strtotime($_POST['lot-date']) < time())) {
+            $errors['lot-date'] = 'Некорректно указана дата';
         }
     }
 
@@ -42,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $file_type = finfo_file($finfo, $tpm_name);
 
-        if ($file_type !== "image/jpeg" || $file_type !== "image/png") {
+        if ($file_type !== 'image/jpeg'){
             $errors['image_url'] = 'Загрузите картинку в формате jpeg, либо png';
         } else {
             move_uploaded_file($tpm_name, 'img/' . $path);

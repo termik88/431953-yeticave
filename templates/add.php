@@ -73,7 +73,9 @@
         <textarea id="message" name="description" placeholder="Напишите описание лота" required><?= $value ?></textarea>
         <span class="form__error">Напишите описание лота</span>
     </div>
-    <div class="form__item form__item--file"> <!-- form__item--uploaded -->
+    <?php $classname = isset($errors['image_url']) ?  ' form__item--invalid' : '';
+    $value = isset($lot['image_url']) ? $lot['image_url'] : ''; ?>
+    <div class="form__item form__item--file<?= $classname ?>"> <!-- form__item--uploaded -->
         <label>Изображение</label>
         <div class="preview">
             <button class="preview__remove" type="button">x</button>
@@ -113,9 +115,11 @@
     </div>
     <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
     <ul>
-        <?php foreach ($errors as $key => $value): ?>
-            <li><strong><?= $dict[$key] ?>: </strong><?= $value ?></li>
-        <?php endforeach; ?>
+        <?php if (isset($errors)) {
+            foreach ($errors as $key => $value): ?>
+                <li><strong><?= $dict[$key] ?>: </strong><?= $value ?></li>
+            <?php endforeach;
+        } ?>
     </ul>
     <button type="submit" class="button">Добавить лот</button>
 </form>
