@@ -24,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     foreach ($_POST as $key => $value) {
-        if ((($key === 'price') or ($key === 'lot-step')) and (!ctype_digit($value))) {
+        if ((($key === 'price') or ($key === 'lot-step')) and ((!filter_var($value,FILTER_VALIDATE_INT,
+                                                                array('options' => array('min_range' => 1)))))) {
                 $errors[$key] = 'В поле возможны только целые положительные числа';
         }
 
