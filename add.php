@@ -11,14 +11,28 @@ require_once('function.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lot = $_POST;
-    $required = ['title', 'category', 'description', 'price', 'lot-date', 'lot-step'];
-    $dict = ['title' => 'Название', 'category' => 'Категория',
+    $required = ['title', 'category', 'description', 'price', 'lot-step', 'lot-date'];
+    $dict = ['title' => 'Наименование', 'category' => 'Категория',
         'description' => 'Описание', 'price' => 'Начальная цена', 'lot-date' => 'Дата окончания торгов', 'lot-step' => 'Шаг ставки'];
     $errors = [];
 
     foreach ($required as $key) {
         if (empty($_POST[$key])) {
-                $errors[$key] = 'Это поле надо заполнить';
+                $errors[$key] = 'Поле не заполненое';
+        }
+    }
+
+    foreach ($_POST as $key => $value) {
+        if ((($key === 'price') or ($key === 'lot-step')) and (!ctype_digit($value))) {
+                $errors[$key] = 'В поле возможны только целые положительные числа';
+        }
+
+        if (($key === 'category') and ($value === 'Выберите категорию')) {
+                $errors[$key] = 'Вы не выбрали категорию';
+        }
+
+        if ((!strtotime($_POST[$key])) or (strtotime($_POST[$key]) < time())) {
+            $errors[$key] = 'Некорректно указана дата';
         }
     }
 
