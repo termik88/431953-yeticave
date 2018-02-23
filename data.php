@@ -90,3 +90,8 @@ $ad_array_items = [
         а силиконовые вставки помогут избежать соскальзывание. '
     ]
 ];
+
+$history_array_name = 'history_viewed_ids';
+$history_viewed_ids = [];
+$expire = strtotime('30 days');
+$path = '/';
