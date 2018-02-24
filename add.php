@@ -24,16 +24,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     foreach ($_POST as $key => $value) {
-        if ((($key === 'price') or ($key === 'lot-step')) and ((!filter_var($value,FILTER_VALIDATE_INT,
+        if ((($key === 'price') || ($key === 'lot-step')) && ((!filter_var($value,FILTER_VALIDATE_INT,
                                                                 array('options' => array('min_range' => 1)))))) {
                 $errors[$key] = 'В поле возможны только целые положительные числа';
         }
 
-        if (($key === 'category') and ($value === 'Выберите категорию')) {
+        if (($key === 'category') && ($value === 'Выберите категорию')) {
                 $errors[$key] = 'Вы не выбрали категорию';
         }
 
-        if ((!strtotime($_POST['lot-date'])) or (strtotime($_POST['lot-date']) < time())) {
+        if ((!strtotime($_POST['lot-date'])) || (strtotime($_POST['lot-date']) < time())) {
             $errors['lot-date'] = 'Некорректно указана дата';
         }
     }

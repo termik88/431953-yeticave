@@ -7,8 +7,6 @@ $bets = [
     ['name' => 'Семён', 'price' => 10000, 'ts' => strtotime('last week')]
 ];
 
-// данные из index.php - task3-module1
-
 $is_auth = (bool) rand(0, 1);
 
 $user_name = 'Константин';

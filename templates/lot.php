@@ -6,7 +6,15 @@
  * Time: 23:23
  */
 ?>
-
+<nav class="nav">
+    <ul class="nav__list container">
+        <?php foreach ($categories as $key => $category) : ?>
+            <li class="nav__item">
+                <a href="all-lots.html"><?=$category?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</nav>
 <section class="lot-item container">
     <?php if (isset($lot)): ?>
     <h2><?= htmlspecialchars($lot['title']) ?></h2>
@@ -40,7 +48,7 @@
               </form>
             <?php endif; ?>
         </div>
-          <?php if ($bets): ?>
+          <?php if (isset($bets)): ?>
             <div class="history">
               <h3>История ставок (<span><?= count($bets) ?></span>)</h3>
               <table class="history__list">
