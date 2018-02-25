@@ -7,8 +7,6 @@ $bets = [
     ['name' => 'Семён', 'price' => 10000, 'ts' => strtotime('last week')]
 ];
 
-// данные из index.php - task3-module1
-
 $is_auth = (bool) rand(0, 1);
 
 $user_name = 'Константин';
@@ -90,3 +88,8 @@ $ad_array_items = [
         а силиконовые вставки помогут избежать соскальзывание. '
     ]
 ];
+
+$history_array_name = 'history_viewed_ids';
+$history_viewed_ids = [];
+$expire = strtotime('30 days');
+$path = '/';
