@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 09.02.2018
- * Time: 0:25
- */
 
 function render_template($template, $data){
     require ('config.php');
@@ -51,3 +45,25 @@ function calc_date($cur_time) {
 
     return date('H:i', mktime($hour, $minutes));
 };
+
+function validation_required($required, $array_post) {
+    $errors = [];
+    foreach ($required as $field) {
+        if (empty($array_post[$field])) {
+            $errors[$field] = 'Это поле надо заполнить';
+        }
+    }
+    return $errors;
+};
+
+function searchUserByEmail($email, $users) {
+    $result = null;
+    foreach ($users as $user) {
+        if ($user['email'] == $email) {
+            $result = $user;
+            break;
+        }
+    }
+
+    return $result;
+}

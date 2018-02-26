@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 17.02.2018
- * Time: 21:01
- */
 
 require_once('data.php');
 require_once('function.php');
@@ -15,14 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dict = ['title' => 'Наименование', 'category' => 'Категория',
         'description' => 'Описание', 'price' => 'Начальная цена',
         'lot-date' => 'Дата окончания торгов', 'lot-step' => 'Шаг ставки', 'image_url' => 'Картинка'];
-    $errors = [];
 
-    foreach ($required as $key) {
-        if (empty($_POST[$key])) {
-                $errors[$key] = 'Поле не заполненое';
-        }
-    }
-
+    $errors = validation_required($required, $lot);
     foreach ($_POST as $key => $value) {
         if ((($key === 'price') || ($key === 'lot-step')) && ((!filter_var($value,FILTER_VALIDATE_INT,
                                                                 array('options' => array('min_range' => 1)))))) {
