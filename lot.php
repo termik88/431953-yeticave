@@ -27,6 +27,7 @@ if (isset($_GET['lot_id'])) {
             setcookie($history_array_name, json_encode($history_viewed_ids), $expire, $path);
         }
     } else {
+        $history_viewed_ids[] = $lot_id;
         setcookie($history_array_name, json_encode($history_viewed_ids), $expire, $path);
     }
 };
