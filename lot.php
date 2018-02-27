@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 14.02.2018
- * Time: 23:26
- */
 
 require_once('data.php');
 require_once('function.php');

@@ -4,8 +4,6 @@ require_once('data.php');
 require_once ('userdata.php');
 require_once('function.php');
 
-session_start();
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $login_form = $_POST;
     $required = ['email', 'password'];
