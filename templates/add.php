@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 17.02.2018
- * Time: 20:59
- */
 ?>
 
 <nav class="nav">
