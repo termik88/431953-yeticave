@@ -40,7 +40,6 @@ loading_page('lot.php', 'YetiCave - Просмотр лота', ['lot_id' => $lo
                                                                         'lot' => $lot,
                                                                         'bets' => $bets,
                                                                         'categories' => $categories,
-                                                                        'is_auth' => $is_auth,
-                                                                        'user_name' => $user_name,
-                                                                        'user_avatar' => $user_avatar
+                                                                        'authorization' => $authorization,
+                                                                        'user' => $user
 ]);

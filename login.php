@@ -14,25 +14,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!filter_var($login_form['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Не правильно введен Email';
-    }
-
-    if (!count($errors) and $users = searchUserByEmail($login_form['email'], $users)) {
-        if (password_verify($login_form['password'], $users['password'])) {
-            $_SESSION['user'] = $users;
-        } else {
-            $errors['password'] = 'Неверный пароль';
-        }
     } else {
-        $errors['email'] = 'Такой пользователь не найден';
+        $users = searchUserByEmail($login_form['email'], $users);
+        if (!count($errors) && $users) {
+            if (password_verify($login_form['password'], $users['password'])) {
+                $_SESSION['user'] = $users;
+            } else {
+                $errors['password'] = 'Вы ввели неверный пароль';
+            }
+        } else if (!$users){
+            $errors['email'] = 'Такой пользователь не найден';
+        }
     }
 
     if (count($errors)) {
-        loading_page('login.php', 'Аутентификация ', ['errors' => $errors,
+        loading_page('login.php', 'Авторизация ', ['errors' => $errors,
                                                                         'login_form' => $login_form,
-                                                                        'categories' => $categories,
-                                                                        'is_auth' => $is_auth,
-                                                                        'user_name' => $user_name,
-                                                                        'user_avatar' => $user_avatar]);
+                                                                        'categories' => $categories]);
     } else {
         header("Location: /index.php");
         exit();
@@ -40,14 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 } else {
     if (isset($_SESSION['user'])) {
-        loading_page('index.php', 'YetiCave',['categories' => $categories,
-                                                                'is_auth' => $is_auth,
-                                                                'user_name' => $user_name,
-                                                                'user_avatar' => $user_avatar]);
+        loading_page('index.php', 'YetiCave', ['ad_array_items' => $ad_array_items,
+                                                                'categories' => $categories,
+                                                                'authorization' => $authorization,
+                                                                'user' => $user]);
     } else {
-        loading_page('login.php', 'Аутентификация', ['categories' => $categories,
-                                                                        'is_auth' => $is_auth,
-                                                                        'user_name' => $user_name,
-                                                                        'user_avatar' => $user_avatar]);
+        loading_page('login.php', 'Авторизация', ['categories' => $categories]);
     }
 }
