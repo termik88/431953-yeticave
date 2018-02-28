@@ -67,14 +67,24 @@ VALUES ('2018-02-24  00:00:00',600, 1, 3);
 /*Получение списка всех категорий*/
 SELECT * FROM category
 
-/**/
+/*Показать свежие не закрытые лоты*/
+SELECT lot.date_of_create, lot.name as name_lot, lot.start_price, lot.picture, category.name
+FROM lot JOIN category ON category.id = lot.id_category
+WHERE lot.id_winner IS NULL
+ORDER BY lot.date_of_create ASC;
 
 /*Показать лот и его категорию по заданному id*/
-SELECT lot.name, lot.start_price, lot.picture, category.name FROM lot JOIN category ON category.id = lot.id_category
+SELECT lot.name, lot.start_price, lot.picture, category.name
+FROM lot JOIN category ON category.id = lot.id_category
 WHERE lot.id = 3;
 
 /*Обновление поля по заданному id*/
 UPDATE lot SET name = 'Супер шмотка'
 WHERE lot.id = 3;
 
-/*Самые свежие ставки для лота по заданному id*/
+/*Две свежие ставки для лота по заданному id*/
+SELECT category.name, lot.name, bet.sum, bet.date
+FROM lot JOIN bet ON bet.id_lot = lot.id
+			JOIN category ON category.id = lot.id_category
+WHERE lot.id = 3
+ORDER BY bet.sum ASC LIMIT 2;
