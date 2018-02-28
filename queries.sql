@@ -63,3 +63,18 @@ INSERT INTO bet (date, sum, id_user, id_lot)
 VALUES ('2018-02-23 00:00:00', 400, 2, 3);
 INSERT INTO bet (date, sum, id_user, id_lot)
 VALUES ('2018-02-24  00:00:00',600, 1, 3);
+
+/*Получение списка всех категорий*/
+SELECT * FROM category
+
+/**/
+
+/*Показать лот и его категорию по заданному id*/
+SELECT lot.name, lot.start_price, lot.picture, category.name FROM lot JOIN category ON category.id = lot.id_category
+WHERE lot.id = 3;
+
+/*Обновление поля по заданному id*/
+UPDATE lot SET name = 'Супер шмотка'
+WHERE lot.id = 3;
+
+/*Самые свежие ставки для лота по заданному id*/
