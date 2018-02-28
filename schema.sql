@@ -3,26 +3,19 @@ USE YetiCave;
 
 CREATE TABLE category (
 id INT AUTO_INCREMENT,
-name CHAR(64) UNIQUE NOT NULL,
+name VARCHAR(64) UNIQUE NOT NULL,
 
 PRIMARY KEY(id)
 );
 
 CREATE INDEX name_category ON category(name);
 
-INSERT INTO category SET name = 'Доски и лыжи';
-INSERT INTO category SET name = 'Крепления';
-INSERT INTO category SET name = 'Ботинки';
-INSERT INTO category SET name = 'Одежда';
-INSERT INTO category SET name = 'Инструменты';
-INSERT INTO category SET name = 'Разное';
-
 CREATE TABLE user (
 id INT AUTO_INCREMENT,
 date_rigistration DATETIME NOT NULL,
 email VARCHAR(30) UNIQUE NOT NULL,
 name VARCHAR(20) NOT NULL,
-password VARCHAR(25) UNIQUE NOT NULL,
+password VARCHAR(100) UNIQUE NOT NULL,
 avatar VARCHAR(64) UNIQUE,
 contact VARCHAR(30) NOT NULL,
 
@@ -50,7 +43,7 @@ FOREIGN KEY(id_category) REFERENCES category(id)
 );
 
 CREATE INDEX name_lot ON lot(name);
-/*CREATE INDEX description on lot(description);*/
+CREATE INDEX description ON lot(description(255));
 
 CREATE TABLE bet (
 id INT AUTO_INCREMENT,
@@ -63,4 +56,4 @@ id_lot INT NOT NULL,
 PRIMARY KEY(id),
 FOREIGN KEY(id_user) REFERENCES user(id),
 FOREIGN KEY(id_lot) REFERENCES lot(id)
-)
+);
