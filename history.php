@@ -1,6 +1,5 @@
 <?php
-require_once('data.php');
-require_once('function.php');
+require_once('init.php');
 
 $history_lots = [];
 
@@ -11,6 +10,8 @@ if (isset($_COOKIE[$history_array_name])) {
     foreach ($history_lots_id as $id) {
         if (isset($ad_array_items[$id])) {
             $history_lots[$id] = $ad_array_items[$id];
+        } else {
+            loading_page_error('пусто');
         }
     }
 

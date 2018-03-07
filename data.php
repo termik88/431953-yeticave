@@ -1,15 +1,4 @@
 <?php
-
-session_start();
-
-$authorization = false;
-$user = [];
-
-if (!empty($_SESSION) && isset($_SESSION['user'])) {
-        $authorization = true;
-        $user = $_SESSION['user'];
-}
-
 $bets = [
     ['name' => 'Иван', 'price' => 11500, 'ts' => strtotime('-' . rand(1, 50) .' minute')],
     ['name' => 'Константин', 'price' => 11000, 'ts' => strtotime('-' . rand(1, 18) .' hour')],
@@ -93,8 +82,3 @@ $ad_array_items = [
         а силиконовые вставки помогут избежать соскальзывание. '
     ]
 ];
-
-$history_array_name = 'history_viewed_ids';
-$history_viewed_ids = [];
-$expire = strtotime('30 days');
-$path = '/';

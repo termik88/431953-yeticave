@@ -4,30 +4,30 @@ CREATE DATABASE YetiCave
 
 USE YetiCave;
 
-CREATE TABLE category (
+CREATE TABLE categories (
 id INT AUTO_INCREMENT,
 name VARCHAR(64) UNIQUE NOT NULL,
 
 PRIMARY KEY(id)
 )ENGINE = InnoDB CHARACTER SET = UTF8;
 
-CREATE INDEX name_category ON category(name);
+CREATE INDEX name_categories ON categories(name);
 
-CREATE TABLE user (
+CREATE TABLE users (
 id INT AUTO_INCREMENT,
-created_date DATETIME NOT NULL,
+created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 email VARCHAR(30) UNIQUE NOT NULL,
 name VARCHAR(20) NOT NULL,
 password VARCHAR(60) NOT NULL,
 avatar VARCHAR(64),
-contact VARCHAR(30),
+contact VARCHAR(30) NOT NULL,
 
 PRIMARY KEY(id)
 )ENGINE = InnoDB CHARACTER SET = UTF8;
 
-CREATE TABLE lot (
+CREATE TABLE lots (
 id INT AUTO_INCREMENT,
-created_date DATETIME NOT NULL,
+created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 name VARCHAR(128) NOT NULL,
 description TEXT NOT NULL,
 picture VARCHAR(128) NOT NULL,
@@ -37,26 +37,27 @@ step INT UNSIGNED NOT NULL,
 
 id_author INT NOT NULL,
 id_winner INT,
-id_category INT NOT NULL,
+id_categori INT NOT NULL,
 
 PRIMARY KEY(id),
-FOREIGN KEY(id_author) REFERENCES user(id),
-FOREIGN KEY(id_winner) REFERENCES user(id),
-FOREIGN KEY(id_category) REFERENCES category(id)
+FOREIGN KEY(id_author) REFERENCES users(id),
+FOREIGN KEY(id_winner) REFERENCES users(id),
+FOREIGN KEY(id_categori) REFERENCES categories(id)
 )ENGINE = InnoDB CHARACTER SET = UTF8;
 
-CREATE INDEX name_lot ON lot(name);
-CREATE INDEX description ON lot(description(255));
+CREATE INDEX name_lot ON lots(name);
+CREATE INDEX description ON lots(description(255));
 
-CREATE TABLE bet (
+CREATE TABLE bets (
 id INT AUTO_INCREMENT,
-date DATETIME,
+date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 sum INT UNSIGNED,
 
 id_user INT NOT NULL,
 id_lot INT NOT NULL,
 
 PRIMARY KEY(id),
-FOREIGN KEY(id_user) REFERENCES user(id),
-FOREIGN KEY(id_lot) REFERENCES lot(id)
+FOREIGN KEY(id_user) REFERENCES users(id),
+FOREIGN KEY(id_lot) REFERENCES lots(id)
 )ENGINE = InnoDB CHARACTER SET = UTF8;
+

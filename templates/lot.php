@@ -8,23 +8,25 @@
 ?>
 <nav class="nav">
     <ul class="nav__list container">
-        <?php foreach ($categories as $key => $category) : ?>
-            <li class="nav__item">
-                <a href="all-lots.html"><?=$category?></a>
-            </li>
-        <?php endforeach; ?>
+        <?php if ($categories): ?>
+            <?php foreach ($categories as $cat): ?>
+                <li class="nav__item">
+                    <a href="index.php?cat_id=<?= $cat['id']; ?>"><?= $cat['name'] ?></a>
+                </li>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </ul>
 </nav>
 <section class="lot-item container">
     <?php if (isset($lot)): ?>
-    <h2><?= htmlspecialchars($lot['title']) ?></h2>
+    <h2><?= htmlspecialchars($lot['0']['name_lot']) ?></h2>
     <div class="lot-item__content">
       <div class="lot-item__left">
         <div class="lot-item__image">
-          <img src="<?= $lot['image_url'] ?>" width="730" height="548" alt="<?= htmlspecialchars($lot['title']) ?>">
+          <img src="<?= $lot['0']['picture'] ?>" width="730" height="548" alt="<?= htmlspecialchars($lot['name_lot']) ?>">
         </div>
-        <p class="lot-item__category">Категория: <span><?= htmlspecialchars($lot['category']) ?></span></p>
-        <p class="lot-item__description"><?= htmlspecialchars($lot['description']) ?></p>
+        <p class="lot-item__category">Категория: <span><?= htmlspecialchars($lot['0']['categories_name']) ?></span></p>
+        <p class="lot-item__description"><?= htmlspecialchars($lot['0']['description']) ?></p>
       </div>
       <div class="lot-item__right">
         <?php if ($authorization) : ?>
@@ -35,7 +37,7 @@
                   <span class="lot-item__amount">Текущая цена</span>
                   <span class="lot-item__cost"><?= modify_price(htmlspecialchars($lot['price'])) ?></span>
                 </div>
-                  <?php if (isset($bets)): ?>
+                  <?php if (isset($lot['user_name'])): ?>
                     <div class="lot-item__min-cost">
                         Мин. ставка <span>12 000 р</span>
                     </div>
@@ -50,23 +52,21 @@
                 <?php endif; ?>
             </div>
         <?php endif; ?>
-          <?php if (isset($bets)): ?>
             <div class="history">
-              <h3>История ставок (<span><?= count($bets) ?></span>)</h3>
-              <table class="history__list">
-                  <?php foreach ($bets as $key => $value): ?>
-                      <tr class="history__item">
-                          <td class="history__name"><?= htmlspecialchars($value['name']) ?></td>
-                          <td class="history__price"><?= htmlspecialchars($value['price']) ?></td>
-                          <td class="history__time"><?= date('H:i', strtotime('-' . rand(1, 50) .' minute')) ?></td>
-                      </tr>
-                  <?php endforeach; ?>
-              </table>
+              <h3>История ставок (<span><?= count($lot['0']['user_name']) ? count($lot) : 'Нет ставок' ?></span>)</h3>
+                <?php if (isset($lot['0']['user_name'])): ?>
+                  <table class="history__list">
+                      <?php foreach ($lot as $key => $value): ?>
+                          <tr class="history__item">
+                              <td class="history__name"><?= htmlspecialchars($value['user_name']) ?></td>
+                              <td class="history__price"><?= htmlspecialchars($value['sut_bet']) ?></td>
+                              <td class="history__time"><?= ($value['date_bet']) ?></td>
+                          </tr>
+                      <?php endforeach; ?>
+                  </table>
+                <?php endif; ?>
             </div>
-          <?php endif; ?>
       </div>
     </div>
-    <?php else: ?>
-        <h1>Лот с ID "<?= $lot_id ?>" не найден</h1>
     <?php endif; ?>
   </section>
